@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv*/
+venv/
+
+# Model + data that's generated at runtime
+model/
+index/
+*.safetensors
+*.bin
+optimizer.pt
+scheduler.pt
+rng_state.pth
+trainer_state.json
+training_args.bin
+
+# API keys — use env vars
+.env
+*.env
+
+# Docker
+*.tar
+
+# OS
+.DS_Store
+Thumbs.db

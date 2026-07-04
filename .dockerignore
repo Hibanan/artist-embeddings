@@ -1,0 +1,8 @@
+# Exclude from Docker build context
+.venv-313/
+__pycache__/
+data/__pycache__/
+model/
+index/
+*.pyc
+.git/
