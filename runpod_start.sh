@@ -62,7 +62,6 @@ else
     echo "GH_TOKEN not set — skipping release upload."
 fi
 
+
 echo ""
-echo "Keeping pod alive — press Ctrl+C to stop."
-# Sleep indefinitely so the pod stays alive for interactive use
-exec sleep infinity
+echo "=== Done. Pod will terminate. ==="
