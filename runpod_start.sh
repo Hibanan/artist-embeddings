@@ -47,6 +47,22 @@ for q in ['Taylor Swift', 'Lana Del Rey', 'Kendrick Lamar', 'Metallica']:
 "
 
 echo ""
+echo "[5/5] Pushing to GitHub release..."
+if [ -n "${GH_TOKEN:-}" ]; then
+    echo "$GH_TOKEN" | gh auth login --with-token
+    ARCHIVE="artist-embeddings-$(date +%Y%m%d-%H%M%S).tar.gz"
+    tar -czf "/workspace/$ARCHIVE" -C /workspace model/final index/
+    echo "Archive: /workspace/$ARCHIVE ($(du -h /workspace/$ARCHIVE | cut -f1))"
+    gh release create "run-$(date +%Y%m%d-%H%M%S)" "/workspace/$ARCHIVE" \
+        --repo Hibanan/artist-embeddings \
+        --title "Training run $(date +%Y-%m-%d\ %H:%M)" \
+        --notes "Automated upload from RunPod training pod."
+    echo "Release pushed to GitHub."
+else
+    echo "GH_TOKEN not set — skipping release upload."
+fi
+
+echo ""
 echo "Keeping pod alive — press Ctrl+C to stop."
 # Sleep indefinitely so the pod stays alive for interactive use
 exec sleep infinity

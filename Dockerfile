@@ -6,7 +6,7 @@ FROM pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime
 
 # System deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git curl \
+    git curl gh \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
