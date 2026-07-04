@@ -10,11 +10,13 @@ echo "Batch: ${BATCH_SIZE:-32}"
 echo ""
 
 # Ensure workspace exists for cache/output
-# Symlink workspace dirs — remove existing dirs first to avoid nested symlinks
+# Symlink workspace dirs — create targets first, then link
+mkdir -p /workspace/model /workspace/index
 rm -rf /app/model /app/index
 ln -sf /workspace/model /app/model
 ln -sf /workspace/index /app/index
-
+# Ensure the symlink targets are real (broken symlinks break Path.mkdir)
+mkdir -p /app/model /app/index
 echo "[1/4] Verifying CUDA..."
 python -c "import torch; assert torch.cuda.is_available(), 'CUDA not found!'; print(f'  {torch.cuda.get_device_name(0)} — {torch.cuda.get_device_properties(0).total_memory/1e9:.1f} GB')"
 
